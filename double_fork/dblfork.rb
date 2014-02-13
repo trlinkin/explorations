@@ -15,7 +15,11 @@ child = fork do
     write.close
 
     # This could be anything we need executed
-    exec command
+    begin
+      exec command
+    rescue SystemCallError
+      puts "guess we're going to do something safe here or such"
+    end
   end
 
   if grandchild
